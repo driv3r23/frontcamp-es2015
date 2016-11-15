@@ -1,17 +1,35 @@
 "use strict";
 
 (function () {
-    let request = new Request('https://newsapi.org/v1/articles?source=bbc-news&apiKey=2a1d89a4b5bf4e9d93d289b1f88ff16c');
+    class NewsApi {
+        constructor(sourceApi, keyApi, containerApi) {
+            this.sourceApi = sourceApi;
+            this.keyApi = keyApi;
+            this.containerApi = containerApi;
+        }
 
-    fetch(request)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(response) {
-            var newsList = "";
+        createApiRequest(source, key) {
+            return new Request(`https://newsapi.org/v1/articles?source=${source}&apiKey=${key}`);
+        }
 
-            response["articles"].forEach(function (item) {
-                newsList +=
+        getNewsList() {
+            let that = this;
+
+            fetch(this.createApiRequest(this.sourceApi, this.keyApi))
+                .then(response => {
+                    return response.json();
+                })
+                .then(response => {
+                    that.parseNewsList(response, that.containerApi);
+                })
+                .catch(error => {
+                    console.error(error);
+                });
+        }
+
+        parseNewsList(response, container, list = "") {
+            response["articles"].forEach(item => {
+                list +=
                     `<article>
                         <h1>${item.title}</h1>
                         <p><img src="${item.urlToImage}"></p>
@@ -19,10 +37,10 @@
                     </article>`;
             });
 
-            newsList += `<p>powered by <a href="https://newsapi.org/">https://newsapi.org/</a></p>`;
+            document.querySelector(container).innerHTML = list;
+        }
+    }
 
-            document.querySelector("body").innerHTML = newsList;
-        }).catch(function(error) {
-            console.error(error);
-    });
+    let newsApi = new NewsApi("bbc-news", "2a1d89a4b5bf4e9d93d289b1f88ff16c", "main");
+    newsApi.getNewsList();
 }());
