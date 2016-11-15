@@ -31,9 +31,11 @@
             response["articles"].forEach(item => {
                 list +=
                     `<article>
-                        <h1>${item.title}</h1>
-                        <p><img src="${item.urlToImage}"></p>
-                        <p>${item.description}<br><a href="${item.url}">read more</a></p>
+                        <h2>${item.title}</h2>
+                        <div>
+                            <img src="${item.urlToImage}">
+                            <p>${item.description}<br><a href="${item.url}">read more</a></p>
+                        </div>
                     </article>`;
             });
 
