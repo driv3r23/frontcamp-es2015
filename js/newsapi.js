@@ -13,14 +13,12 @@
         }
 
         getNewsList() {
-            let that = this;
-
             fetch(this.createApiRequest(this.sourceApi, this.keyApi))
                 .then(response => {
                     return response.json();
                 })
                 .then(response => {
-                    that.parseNewsList(response, that.containerApi);
+                    this.parseNewsList(response, this.containerApi);
                 })
                 .catch(error => {
                     console.error(error);
