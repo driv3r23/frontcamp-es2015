@@ -16,7 +16,10 @@
   },
   "babel": {
     "presets": [
-      "es2015"
+      "latest"
     ]
+  },
+  "dependencies": {
+    "whatwg-fetch": "^2.0.1"
   }
 }
