@@ -34,10 +34,10 @@ module.exports = {
             }
         ]
     },
-    /*watch: NODE_ENV == "development",
+    watch: NODE_ENV == "development",
     watchOptions: {
         aggregateTimeout: 300
-    },*/
+    },
     devtool: NODE_ENV == "development" ? "eval" : null,
     plugins: [
         new ExtractTextPlugin("[name].css"),
@@ -47,7 +47,7 @@ module.exports = {
     ],
     devServer: {
         host: "localhost",
-        port: 8080
+        port: 8000
     }
 };
 

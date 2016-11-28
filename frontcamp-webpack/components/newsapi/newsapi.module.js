@@ -1,6 +1,6 @@
 "use strict";
 
-import createNewsApiRequest from "./newsapi.functions.js";
+import createNewsApiRequest from "./newsapi.functions";
 
 export default class NewsApi {
     constructor(sourceApi, keyApi, containerApi) {
