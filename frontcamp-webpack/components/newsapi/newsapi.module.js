@@ -35,8 +35,6 @@ export default class NewsApi {
                 </article>`;
         });
 
-        console.log(document);
-
         document.querySelector(container).innerHTML = list;
     }
 }
