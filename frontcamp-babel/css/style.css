@@ -1,0 +1,54 @@
+header,
+footer {
+    padding: 1em 1.5em;
+
+    background-color: dimgray;
+}
+
+header h1 {
+    color: white;
+    font-size: 2em;
+    line-height: 0.8;
+}
+
+main {
+    padding: 0 1.5em;
+}
+
+main article {
+    padding: 1.5em 0;
+    border-top: 1px dimgray solid;
+}
+
+main article:first-child {
+    border-top: none;
+}
+
+main h2 {
+    margin: 0 0 1.5em;
+
+    font-size: 1em;
+    line-height: 1.2;
+}
+
+main div {
+    overflow: hidden;
+}
+
+main img {
+    box-sizing: border-box;
+    float: left;
+    width: 50%;
+    margin: 0 1em 0 0;
+    border: 1px dimgray solid;
+}
+
+main p {
+    margin: 1em 0 0;
+}
+
+footer {
+    color: white;
+    font-size: 0.8em;
+    line-height: 1.2;
+}
