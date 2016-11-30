@@ -3,10 +3,11 @@
 import createNewsApiRequest from "./newsapi.functions";
 
 export default class NewsApi {
-    constructor(sourceApi, keyApi, containerApi) {
+    constructor(sourceApi, keyApi, containerApi, documentObj) {
         this.sourceApi = sourceApi;
         this.keyApi = keyApi;
         this.containerApi = containerApi;
+        this.documentObj = documentObj;
     }
 
     getNewsList() {
@@ -15,14 +16,14 @@ export default class NewsApi {
                 return response.json();
             })
             .then(response => {
-                this.parseNewsList(response, this.containerApi);
+                this.parseNewsList(response, this.containerApi, this.documentObj);
             })
             .catch(error => {
                 console.error(error);
             });
     }
 
-    parseNewsList(response, container, list = "") {
+    parseNewsList(response, container, document, list = "") {
         response["articles"].forEach(item => {
             list +=
                 `<article>
@@ -33,6 +34,8 @@ export default class NewsApi {
                     </div>
                 </article>`;
         });
+
+        console.log(document);
 
         document.querySelector(container).innerHTML = list;
     }
