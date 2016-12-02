@@ -4,9 +4,10 @@ const webpack = require("webpack");
 const ExtractTextPlugin = require("extract-text-webpack-plugin");
 
 module.exports = {
-    entry: "./index",
+    entry: ["webpack-dev-server/client?http://localhost:8000/", "webpack/hot/dev-server", "./index"],
     output: {
         path: __dirname + "/public",
+        publicPath: "/",
         filename: "[name].js"
     },
     resolve: {
@@ -41,13 +42,15 @@ module.exports = {
     devtool: NODE_ENV == "development" ? "eval" : null,
     plugins: [
         new ExtractTextPlugin("[name].css"),
+        new webpack.HotModuleReplacementPlugin(),
         new webpack.DefinePlugin({
             NODE_ENV: JSON.stringify(NODE_ENV)
         })
     ],
     devServer: {
         host: "localhost",
-        port: 8000
+        port: 8000,
+        hot: true
     }
 };
 
