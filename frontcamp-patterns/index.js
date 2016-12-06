@@ -1,4 +1,9 @@
 "use strict";
 
 import "./css/style.less";
-import "./components/newsapi/newsapi";
+
+document.querySelector("button").onclick = function () {
+    require.ensure([], function (require) {
+        require("./components/newsapi/newsapi");
+    })
+};

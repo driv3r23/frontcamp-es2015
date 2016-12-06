@@ -3,22 +3,20 @@
 import createNewsApiRequest from "./newsapi.functions";
 
 export default class NewsApi {
-    constructor(keyApi, containerApi, documentObj) {
+    constructor(sourceApi, keyApi, containerApi, documentObj) {
+        this.sourceApi = sourceApi;
         this.keyApi = keyApi;
         this.containerApi = containerApi;
         this.documentObj = documentObj;
-        this.responseData = "";
     }
 
-    createNewsList(source = "bbc-news") {
-        fetch(createNewsApiRequest(source, this.keyApi))
+    getNewsList() {
+        fetch(createNewsApiRequest(this.sourceApi, this.keyApi))
             .then(response => {
                 return response.json();
             })
             .then(response => {
-                this.responseData = response;
-
-                this.parseNewsList(this.responseData, this.containerApi, this.documentObj);
+                this.parseNewsList(response, this.containerApi, this.documentObj);
             })
             .catch(error => {
                 console.error(error);
@@ -38,5 +36,12 @@ export default class NewsApi {
         });
 
         document.querySelector(container).innerHTML = list;
+    }
+
+    static createNewsList(sourceApi, keyApi, containerApi, documentObj) {
+        if (!NewsApi.instance) {
+            NewsApi.instance = new NewsApi(sourceApi, keyApi, containerApi, documentObj);
+        }
+        return NewsApi.instance;
     }
 }
