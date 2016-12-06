@@ -16,16 +16,18 @@ export default class NewsApi {
                 return response.json();
             })
             .then(response => {
-                this.parseNewsList(response, this.containerApi, this.documentObj);
+                this.pasteIntoContainer(this.parseNewsList(response), this.containerApi, this.documentObj);
             })
             .catch(error => {
                 console.error(error);
             });
     }
 
-    parseNewsList(response, container, document, list = "") {
+    parseNewsList(response) {
+        let newsList = "";
+
         response["articles"].forEach(item => {
-            list +=
+            newsList +=
                 `<article>
                     <h2>${item.title}</h2>
                     <div>
@@ -35,7 +37,11 @@ export default class NewsApi {
                 </article>`;
         });
 
-        document.querySelector(container).innerHTML = list;
+        return newsList;
+    }
+
+    pasteIntoContainer(data, container, document) {
+        document.querySelector(container).innerHTML = data;
     }
 
     static createNewsList(sourceApi, keyApi, containerApi, documentObj) {
