@@ -9,11 +9,16 @@
     "type": "git",
     "url": "git://github.com/driv3r23/frontcamp.git"
   },
+  "keywords": [
+    "heroku"
+  ],
+  "engines": {
+    "node": "6.9.1",
+    "npm": "3.10.8"
+  },
   "scripts": {
-    "publish": "webpack --config webpack.production.config.js",
-    "build": "webpack --config webpack.development.config.js",
-    "server": "webpack-dev-server",
-    "start": "npm-run-all --parallel build server",
+    "start": "node index.js",
+    "postinstall": "webpack",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -28,7 +33,6 @@
     "webpack": "^1.13.3"
   },
   "devDependencies": {
-    "npm-run-all": "^3.1.1",
     "webpack-dev-server": "^1.16.2"
   }
 }
