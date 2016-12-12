@@ -1,0 +1,33 @@
+db.articles.find({ author: "BBC News", published: { $gte: new Date("2016-12-12T09:00:00.000Z") } })
+
+db.articles.insertOne(
+    {
+        title: "UK's current GDP growth rate won't last, warns business body",
+        published: new Date("2016-12-12T07:10:46Z"),
+        description: "The UK economy's buoyant growth rate will not last, the British Chambers of Commerce (BCC) claims.",
+        author: "BBC News",
+        url: "http://www.bbc.co.uk/news/business-38284554",
+        image: "http://ichef-1.bbci.co.uk/news/1024/cpsprodpb/13B24/production/_89167608_89167607.jpg"
+    }
+)
+
+db.articles.updateMany(
+   { "author": "BBC Sport" },
+   {
+     $set: { "author": "BBC Football" },
+     $currentDate: { modified: true }
+   }
+)
+
+db.articles.deleteMany({ author: "BBC Sport" })
+
+db.articles.createIndex({ title: "text", published: -1 })
+
+mongodump --host 127.0.0.1 --port 27017 --db news --out database/backup/news-2016-12-12
+
+mongodump --host 127.0.0.1 --port 27017 --db news --archive=news-2016-12-12.gz --gzip
+
+mongorestore --host 127.0.0.1 --port 27017 --archive=news-2016-12-12.gz --drop --gzip
+
+
+
