@@ -1,0 +1,99 @@
+cd ~/Documents/Github/frontcamp/
+
+db.articles.find({ author: "BBC News", published: { $gte: ISODate("2016-12-12T09:00:00.000Z") } })
+
+db.articles.insertOne(
+    {
+        title: "Southern rail strike: 48-hour walkout causes chaos for commuters",
+        published: new Date("2016-12-13T13:12:11Z"),
+        description: "Rail passengers endure travel chaos as striking train drivers bring the Southern network to a halt.",
+        author: "BBC News",
+        url: "http://www.bbc.co.uk/news/uk-england-38296623",
+        image: "http://ichef.bbci.co.uk/news/1024/cpsprodpb/CBF7/production/_92951225_9478f491-a7ba-429a-8eef-88263c5e62c0.jpg"
+    }
+)
+
+db.articles.updateMany(
+   { "author": "BBC Football" },
+   {
+     $set: { "author": "BBC Sport" },
+     $currentDate: { modified: true }
+   }
+)
+
+db.articles.deleteMany({ author: "BBC Sport" })
+
+db.articles.createIndex({ title: "text", published: -1 })
+
+mongodump --host 127.0.0.1 --port 27017 --db news --out database/backup/news-2016-12-14
+
+mongodump --host 127.0.0.1 --port 27017 --db news --archive=news-2016-12-14.gz --gzip
+
+mongorestore --host 127.0.0.1 --port 27017 --archive=news-2016-12-14.gz --drop --gzip
+
+mongod --port 27017 --dbpath database/classes-rs0-0 --replSet classes-rs
+mongod --port 27018 --dbpath database/classes-rs0-1 --replSet classes-rs
+mongod --port 27019 --dbpath database/classes-rs0-2 --replSet classes-rs
+
+mongo --port 27017
+rs.initiate({ _id: "classes-rs", members: [{ _id: 0, host: "127.0.0.1:27017" }] })
+rs.conf()
+rs.add("127.0.0.1:27018")
+rs.add("127.0.0.1:27019")
+
+mongoimport --db classes --collection students --file mongo.json
+
+db.students.mapReduce(
+    function () {
+        emit(this._id, {
+            student_id: this.student_id,
+            class_id: this.class_id,
+            score: this.scores.map((value) => {
+                return value.type != "quiz" ? value.score : 0
+            }).reduce((current, next) => current + next)
+        });
+    },
+    function (key, value) {
+        return value;
+    },
+    {
+        out: "students_average"
+    }
+)
+
+db.students_average.aggregate([
+    {
+        $group: {
+            _id: "$value.class_id",
+            average: {$sum: "$value.score"}
+        }
+    },
+    {
+        $sort: {
+            average: -1
+        }
+    },
+    {
+        $limit : 1
+    }
+])
+
+db.students.aggregate([
+    {
+        $group: {
+            _id: "$student_id",
+            "scores": { $add: "$scores" }
+        }
+    },
+    {
+        $project: {
+            "results": {
+                $reduce: {
+                    input: "$scores",
+                    initialValue: "",
+                    in: { $concatArrays: [ "$$value", "$$this" ] }
+                }
+            }
+        }
+    }
+])
