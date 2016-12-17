@@ -1,0 +1,13 @@
+extends layout
+
+block content
+    p
+        a(href="posts/add", target="_blank")= "Add post"
+    each item in data
+        article
+            h2= item.title
+            h3= item.author
+            p= item.body
+            if item.image
+                p
+                    img(src="#{item.image}")
