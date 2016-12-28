@@ -1,5 +1,17 @@
 extends layout
 
 block content
-  h1= title
-  p Welcome to #{title}
+  p
+    a(href="add", target="_blank") Add post
+  each item in data
+    article
+      h2= item.title
+      h3= item.author
+      p= item.body
+      if item.image
+        p
+          img(src="#{item.image}", height="300")
+      p
+        a(href="delete/#{item._id}") Delete
+        = " | "
+        a(href="edit/#{item._id}") Edit
