@@ -11,3 +11,5 @@ block content
             if item.image
                 p
                     img(src="#{item.image}")
+            p
+                a(href="posts/delete/#{item._id}")= "Delete"

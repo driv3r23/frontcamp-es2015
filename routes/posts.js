@@ -25,6 +25,12 @@ router.get('/add', function(req, res, next) {
     res.render('add', {});
 });
 
+router.get('/delete/:id', function(req, res, next) {
+  Post.remove({ _id: req.params.id }, function (err) {
+    res.redirect('back');
+  });
+});
+
 router.post('/create', upload.single('image'), function(req, res, next) {
   var post = new Post({
     title: req.body.title,
@@ -37,7 +43,7 @@ router.post('/create', upload.single('image'), function(req, res, next) {
     if(error) console.error(error);
   });
 
-  res.redirect("/posts");
+  res.redirect('/posts');
 });
 
 module.exports = router;
