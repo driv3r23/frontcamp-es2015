@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 var database = require('./database');
 
 var postSchema = mongoose.Schema({
-    title:  {type: String, required: [true, 'Why no title?']},
+    title:  {type: String, required: true},
     author: String,
     body:   String,
     date: { type: Date, default: Date.now },
