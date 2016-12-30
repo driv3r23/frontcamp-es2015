@@ -1,6 +1,7 @@
 var express = require('express');
 var multer = require('multer');
 var passport = require('passport');
+var ObjectId = require('mongodb').ObjectID;
 var router = express.Router();
 var storage = multer.diskStorage({
     destination: function (req, file, cb) {
@@ -11,8 +12,14 @@ var storage = multer.diskStorage({
     }
 });
 var upload = multer({storage: storage});
-
 var Post = require('../models/post');
+
+var isLogged = function(req, res, next){
+    if(req.isAuthenticated())
+        return next();
+    else
+        res.redirect('/users/login');
+};
 
 router.get('/', function (req, res, next) {
     Post.find(function (error, data) {
@@ -21,17 +28,17 @@ router.get('/', function (req, res, next) {
     }).sort({date: -1})
 });
 
-router.get('/add', function (req, res, next) {
+router.get('/add', isLogged, function (req, res, next) {
     res.render('add', {});
 });
 
-router.get('/delete/:id', function (req, res, next) {
+router.get('/delete/:id', isLogged, function (req, res, next) {
     Post.findByIdAndRemove(req.params.id, function (err) {
         res.redirect('back');
     });
 });
 
-router.get('/edit/:id', function (req, res, next) {
+router.get('/edit/:id', isLogged, function (req, res, next) {
     Post.findOne({_id: req.params.id}, function (error, data) {
         if (error) return console.error(error);
         res.render('add', {
@@ -45,7 +52,7 @@ router.get('/edit/:id', function (req, res, next) {
 });
 
 router.post('/create', upload.single('image'), function (req, res, next) {
-    Post.findByIdAndUpdate(req.body.id ? req.body.id : null, {
+    Post.findByIdAndUpdate(req.body.id ? req.body.id : new ObjectId(), {
         $set: {
             title: req.body.title,
             author: req.body.author,
