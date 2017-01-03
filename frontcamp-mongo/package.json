@@ -1,0 +1,38 @@
+{
+  "name": "frontcamp-webpack",
+  "version": "1.0.0",
+  "description": "FrontCamp Mongo",
+  "main": "index.js",
+  "author": "Aliaksandr Khvainitski",
+  "license": "ISC",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/driv3r23/frontcamp.git"
+  },
+  "keywords": [
+    "heroku"
+  ],
+  "engines": {
+    "node": "6.9.1",
+    "npm": "3.10.8"
+  },
+  "scripts": {
+    "start": "node index.js",
+    "postinstall": "webpack",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "babel-core": "^6.18.2",
+    "babel-loader": "^6.2.8",
+    "babel-preset-es2015": "^6.18.0",
+    "css-loader": "^0.26.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "less": "^2.7.1",
+    "less-loader": "^2.2.3",
+    "style-loader": "^0.13.1",
+    "webpack": "^1.13.3"
+  },
+  "devDependencies": {
+    "webpack-dev-server": "^1.16.2"
+  }
+}

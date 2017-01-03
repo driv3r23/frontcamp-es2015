@@ -1,0 +1,19 @@
+doctype html
+html
+    head
+        title= title
+        link(rel='stylesheet', href='/stylesheets/style.css')
+    body
+        header
+            ul
+                li
+                    a(href='/') Home
+                if !user
+                    li
+                        a(href='/users/login') Login
+                    li
+                        a(href='/users/register') Register
+                else
+                    li
+                        a(href='/users/logout') Logout
+        block content

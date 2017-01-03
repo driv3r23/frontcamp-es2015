@@ -1,6 +1,6 @@
 "use strict";
 
-import NewsApi from "./newsapi.module";
+import NewsApi from "./newsapi.module.js";
 
 export default class NewsApiDecorator extends NewsApi {
     constructor(newsApiObject) {
