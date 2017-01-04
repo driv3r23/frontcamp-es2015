@@ -10,7 +10,7 @@ block content
             p= item.body
             if user
                 nav
-                    a.btn.btn-default(href="edit/#{item._id}") Edit
+                    a.btn.btn-default(href="/posts/#{item._id}") Edit
                     = "\n"
-                    a.btn.btn-link.text-danger(href="delete/#{item._id}") Delete
+                    a.btn.btn-link.text-danger.blog-post-delete(href="/posts/#{item._id}") Delete
             hr
