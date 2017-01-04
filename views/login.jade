@@ -1,15 +1,14 @@
 extends layout
 
 block content
+    if error.length
+        div.alert.alert-danger= error
     form(action="/users/login", method="post")
-        p
-            label= "Username "
-            input(type="text", name="username")
-        p
-            label= "Password "
-            input(type="password", name="password")
-        p
-            button= "Submit"
-
-        if error
-            p=error
+        div.form-group
+            label(for="username") Username
+            input#username.form-control(type="text", name="username", placeholder="Username")
+        div.form-group
+            label(for="password") Password
+            input#password.form-control(type="password", name="password", placeholder="Password")
+        div.form-group
+            button.btn.btn-default(type="submit") Log In

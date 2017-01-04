@@ -1,19 +1,16 @@
 extends layout
 
 block content
-    if user
-        p
-            a(href="add", target="_blank") Add post
     each item in data
-        article
-            h2= item.title
-            h3= item.author
-            p= item.body
+        article.blog-post
             if item.image
-                p
-                    img(src="#{item.image}", height="300")
+                img.img-thumbnail(src="#{item.image}", height="300")
+            h2.blog-post-title= item.title
+            p.blog-post-meta= item.author
+            p= item.body
             if user
-                p
-                    a(href="delete/#{item._id}") Delete
-                    = " | "
-                    a(href="edit/#{item._id}") Edit
+                nav
+                    a.btn.btn-default(href="edit/#{item._id}") Edit
+                    = "\n"
+                    a.btn.btn-link.text-danger(href="delete/#{item._id}") Delete
+            hr

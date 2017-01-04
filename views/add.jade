@@ -2,21 +2,20 @@ extends layout
 
 block content
     form(action="/create", method="post", enctype="multipart/form-data")
-        p
-            label= "Title "
-                input(type="text", name="title", value=title ? title : null)
-        p
-            label= "Author "
-                input(type="text", name="author", value=author ? author : null)
-        p
-            label= "Image "
-                input(type="file", name="image")
-        p
-            label= "Body "
-                textarea(name="body")=body ? body : ""
-        p
-            button= "Submit"
+        div.form-group
+            label(for="title") Title
+            input#title.form-control(type="text", name="title", value=title ? title : null, placeholder="Title")
+        div.form-group
+            label(for="author") Author
+            input#author.form-control(type="text", name="author", value=author ? author : null, placeholder="Author")
+        div.form-group
+            label(for="image") Image
+            input#image(type="file", name="image")
+        div.form-group
+            label(for="body") Body
+            textarea#body.form-control(name="body", placeholder="Body")=body ? body : ""
+        div.form-group
+            button.btn.btn-default(type="submit") Submit
 
-        p
-            input(type="hidden", name="id", value=id ? id : null)
-            input(type="hidden", name="upload", value=upload ? upload : null)
+        input(type="hidden", name="id", value=id ? id : null)
+        input(type="hidden", name="upload", value=upload ? upload : null)

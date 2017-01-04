@@ -1,22 +1,21 @@
 extends layout
 
 block content
-    form(action="/users/register", method="post")
-        p
-            label= "Username "
-            input(type="text", name="username")
-        p
-            label= "Email "
-            input(type="email", name="email")
-        p
-            label= "Password "
-            input(type="password", name="password")
-        p
-            label= "Repeat Password "
-            input(type="password", name="password-repeat")
-        p
-            button= "Submit"
-
     if errors
         each item in errors
-            p= item.msg
+            div.alert.alert-danger= item.msg
+    form(action="/users/register", method="post")
+        div.form-group
+            label(for="username") Username
+            input#username.form-control(type="text", name="username", placeholder="Username")
+        div.form-group
+            label(for="email") Email
+            input#email.form-control(type="email", name="email", placeholder="Email")
+        div.form-group
+            label(for="password") Password
+            input#password.form-control(type="password", name="password", placeholder="Password")
+        div.form-group
+            label(for="password-repeat") Repeat Password
+            input#password-repeat.form-control(type="password", name="password-repeat", placeholder="Repeat Password")
+        div.form-group
+            button.btn.btn-default(type="submit") Register
