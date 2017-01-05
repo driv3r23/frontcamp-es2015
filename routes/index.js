@@ -32,7 +32,7 @@ router.get('/posts/add', isLogged, function (req, res, next) {
     res.render('add', {});
 });
 
-router.get(['/posts/:id', '/:api/posts/:id'], isLogged, function (req, res, next) {
+router.get(['/posts/:id', '/:api/posts/:id'], function (req, res, next) {
     Post.findOne({_id: req.params.id}, function (error, data) {
         if (error) return console.error(error);
 
