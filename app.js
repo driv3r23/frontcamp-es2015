@@ -9,11 +9,13 @@ var validator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
 
-var LocalStrategy = require('passport-local').Strategy;
+var config = require('./config/config');
+
+const LocalStrategy = require('passport-local').Strategy;
+const MongoStore = require('connect-mongo')(session);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
-var posts = require('./routes/posts');
 
 var app = express();
 
@@ -32,9 +34,16 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-    secret: 'frontcamp',
-    saveUninitialized: true,
-    resave: true
+    secret: config.get('session:secret'),
+    store: new MongoStore({
+        url: 'mongodb://' + config.get('database:username') +
+            ':' + config.get('database:password') +
+            '@' + config.get('database:host') +
+            ':' + config.get('database:port') +
+            '/' + config.get('database:name')
+    }),
+    saveUninitialized: config.get('session:saveUninitialized'),
+    resave: config.get('session:resave')
 }));
 
 app.use(passport.initialize());
@@ -68,7 +77,6 @@ app.use(function (req, res, next) {
 
 app.use('/', index);
 app.use('/users', users);
-app.use('/posts', posts);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

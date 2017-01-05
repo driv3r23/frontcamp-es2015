@@ -1,0 +1,9 @@
+{
+  "database": {
+    "host": "ds127878.mlab.com",
+    "port": "27878",
+    "name": "heroku_x69cxl1q",
+    "username": "admin",
+    "password": "admin123"
+  }
+}
