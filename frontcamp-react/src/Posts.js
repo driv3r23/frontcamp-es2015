@@ -1,10 +1,9 @@
 import React, {Component} from 'react';
-import Post from './Post';
 import './Posts.css';
 
 class Posts extends Component {
-    constructor() {
-        super();
+    constructor(props) {
+        super(props);
 
         this.state = {
             posts: []
@@ -12,9 +11,9 @@ class Posts extends Component {
     }
 
     componentDidMount() {
-        fetch('http://frontcamp-khvainitski.herokuapp.com/api/posts').then(r => r.json())
+        fetch('https://frontcamp-khvainitski.herokuapp.com/api/posts').then(r => r.json())
             .then((data) => {
-                this.setState({posts: data.posts})
+                this.setState({posts: data})
             })
             .catch((err) => {
                 console.log(err);
@@ -24,12 +23,18 @@ class Posts extends Component {
     render() {
         return (
             <div>
-                {this.state.posts.map((item, index) =>
-                    <Post key={item._id} item={item}/>
-                )}
+                {
+                    this.state.posts.map((item, index) =>
+                        <article className="blog-post" key={index}>
+                            <h3>{item.title}</h3>
+                            <p><a href={"/#/posts/" + item._id}>Read more</a></p>
+                        </article>
+                    )
+                }
             </div>
-        );
+        )
     }
 }
+
 
 export default Posts;

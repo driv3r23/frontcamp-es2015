@@ -2,8 +2,26 @@ import React, {Component} from 'react';
 import './Posts.css';
 
 class Post extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            post: []
+        };
+    }
+
+    componentDidMount() {
+        fetch(`https://frontcamp-khvainitski.herokuapp.com/api/posts/${this.props.id}`).then(r => r.json())
+            .then((data) => {
+                this.setState({post: data})
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+    }
+
     render() {
-        const post = this.props.item;
+        const post = this.state.post;
 
         return (
             <article className="blog-post">

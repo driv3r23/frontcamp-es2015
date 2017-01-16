@@ -6,8 +6,11 @@ class App extends Component {
             <header>
                 <h1>FrontCamp</h1>
                 <nav>
-                    <a className="btn btn-default" href="/#/posts">Posts</a>
+                    <a href="/#/posts">Posts</a>
                 </nav>
+                <main>
+                    {this.props.children}
+                </main>
             </header>
         );
     }
