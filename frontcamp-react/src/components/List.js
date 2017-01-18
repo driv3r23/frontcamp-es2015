@@ -1,7 +1,6 @@
 import React, {Component} from 'react';
-import './Posts.css';
 
-class Posts extends Component {
+class List extends Component {
     constructor(props) {
         super(props);
 
@@ -37,4 +36,4 @@ class Posts extends Component {
 }
 
 
-export default Posts;
+export default List;

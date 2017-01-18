@@ -1,6 +1,6 @@
 import React, {Component} from 'react';
-import Post from './Post';
-import Posts from './Posts';
+import Post from './components/Post';
+import Posts from './components/Posts';
 
 class PostsController extends Component {
     render() {

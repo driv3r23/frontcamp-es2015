@@ -1,5 +1,4 @@
 import React, {Component} from 'react';
-import './Posts.css';
 
 class Post extends Component {
     constructor(props) {
@@ -11,7 +10,7 @@ class Post extends Component {
     }
 
     componentDidMount() {
-        fetch(`https://frontcamp-khvainitski.herokuapp.com/api/posts/${this.props.id}`).then(r => r.json())
+        fetch(`https://frontcamp-khvainitski.herokuapp.com/api/posts/${this.props.params.id}`).then(r => r.json())
             .then((data) => {
                 this.setState({post: data})
             })
