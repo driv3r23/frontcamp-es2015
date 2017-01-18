@@ -1,29 +1,18 @@
 import React, {Component} from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as postActions from '../actions/PostActions'
 
 class List extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            posts: []
-        };
-    }
-
     componentDidMount() {
-        fetch('https://frontcamp-khvainitski.herokuapp.com/api/posts').then(r => r.json())
-            .then((data) => {
-                this.setState({posts: data})
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        this.props.postActions.getPost();
     }
 
     render() {
         return (
             <div>
                 {
-                    this.state.posts.map((item, index) =>
+                    this.props.list.data.map((item, index) =>
                         <article className="blog-post" key={index}>
                             <h3>{item.title}</h3>
                             <p><a href={"/#/posts/" + item._id}>Read more</a></p>
@@ -35,5 +24,16 @@ class List extends Component {
     }
 }
 
+function mapStateToProps(state) {
+    return {
+        list: state.post
+    }
+}
 
-export default List;
+function mapDispatchToProps(dispatch) {
+    return {
+        postActions: bindActionCreators(postActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(List)
