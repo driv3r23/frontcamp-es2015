@@ -1,4 +1,5 @@
 var express = require('express');
+var cors = require('cors');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
@@ -9,7 +10,10 @@ var validator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
 
-var LocalStrategy = require('passport-local').Strategy;
+var config = require('./config/config');
+
+const LocalStrategy = require('passport-local').Strategy;
+const MongoStore = require('connect-mongo')(session);
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -22,6 +26,7 @@ app.set('view engine', 'jade');
 
 // uncomment after placing your favicon in /public
 //app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(cors());
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -31,9 +36,16 @@ app.use(require('less-middleware')(path.join(__dirname, 'public')));
 app.use(express.static(path.join(__dirname, 'public')));
 
 app.use(session({
-    secret: 'frontcamp',
-    saveUninitialized: true,
-    resave: true
+    secret: config.get('session:secret'),
+    store: new MongoStore({
+        url: 'mongodb://' + config.get('database:username') +
+            ':' + config.get('database:password') +
+            '@' + config.get('database:host') +
+            ':' + config.get('database:port') +
+            '/' + config.get('database:name')
+    }),
+    saveUninitialized: config.get('session:saveUninitialized'),
+    resave: config.get('session:resave')
 }));
 
 app.use(passport.initialize());

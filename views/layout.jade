@@ -2,18 +2,30 @@ doctype html
 html
     head
         title= title
-        link(rel='stylesheet', href='/stylesheets/style.css')
+        meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
+        link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
+        link(rel="stylesheet", href="/stylesheets/style.css")
+        script(src="/scripts/posts.js")
     body
-        header
-            ul
-                li
-                    a(href='/') Home
-                if !user
-                    li
-                        a(href='/users/login') Login
-                    li
-                        a(href='/users/register') Register
-                else
-                    li
-                        a(href='/users/logout') Logout
-        block content
+        nav.navbar.navbar-default.navbar-static-top
+            div.container
+                div.navbar-header
+                    a.navbar-brand(href="/") FrontCamp Blog
+                div.navbar-collapse.collapse
+                    ul.nav.navbar-nav
+                        li
+                            a(href="/") Home
+                        if user
+                            li
+                                a(href="/posts/add") Add post
+                    ul.nav.navbar-nav.navbar-right
+                        if !user
+                            li
+                                a(href="/users/login") Login
+                            li
+                                a(href="/users/register") Register
+                        else
+                            li
+                                a(href="/users/logout") Logout
+        div.container
+            block content

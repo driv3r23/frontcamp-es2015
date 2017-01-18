@@ -15,44 +15,49 @@ var upload = multer({storage: storage});
 var Post = require('../models/post');
 
 var isLogged = function(req, res, next){
-    if(req.isAuthenticated())
-        return next();
-    else
-        res.redirect('/users/login');
+    if (req.isAuthenticated()) return next();
+    else res.redirect('/users/login');
 };
 
-router.get('/', function (req, res, next) {
+router.get(['/', '/:api/posts'], function (req, res, next) {
     Post.find(function (error, data) {
         if (error) return console.error(error);
-        res.render('index', {data: data});
+
+        if (req.params.api == "api") res.json(data);
+        else res.render('index', {data: data});
     }).sort({date: -1})
 });
 
-router.get('/add', isLogged, function (req, res, next) {
+router.get('/posts/add', isLogged, function (req, res, next) {
     res.render('add', {});
 });
 
-router.get('/delete/:id', isLogged, function (req, res, next) {
-    Post.findByIdAndRemove(req.params.id, function (err) {
-        res.redirect('back');
-    });
-});
-
-router.get('/edit/:id', isLogged, function (req, res, next) {
+router.get(['/posts/:id', '/:api/posts/:id'], function (req, res, next) {
     Post.findOne({_id: req.params.id}, function (error, data) {
         if (error) return console.error(error);
-        res.render('add', {
+
+        let response = {
             title: data.title,
             author: data.author,
             body: data.body,
             id: req.params.id,
             upload: data.image
-        });
+        };
+
+        if (req.params.api == "api") res.json(response);
+        else res.render('add', response);
     })
 });
 
-router.post('/create', upload.single('image'), function (req, res, next) {
-    Post.findByIdAndUpdate(req.body.id ? req.body.id : new ObjectId(), {
+router.delete(['/posts/:id', '/:api/posts/:id'], isLogged, function (req, res, next) {
+    Post.findByIdAndRemove(req.params.id, function (error) {
+        if (error) return console.error(error);
+        res.end();
+    });
+});
+
+router.post(['/posts', '/posts/:id', '/:api/posts', '/:api/posts/:id'], upload.single('image'), function (req, res, next) {
+    Post.findByIdAndUpdate(req.params.id ? req.params.id : new ObjectId(), {
         $set: {
             title: req.body.title,
             author: req.body.author,
@@ -63,7 +68,8 @@ router.post('/create', upload.single('image'), function (req, res, next) {
         if (error) console.error(error);
     });
 
-    res.redirect('/');
+    if (req.params.api == "api") res.end();
+    else res.redirect('/');
 });
 
 module.exports = router;

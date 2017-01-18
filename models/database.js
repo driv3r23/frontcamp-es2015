@@ -1,3 +1,8 @@
 var mongoose = require('mongoose');
+var config = require('../config/config');
 
-mongoose.connect('mongodb://admin:admin123@ds127878.mlab.com:27878/heroku_x69cxl1q');
+mongoose.connect('mongodb://' + config.get('database:username') +
+    ':' + config.get('database:password') +
+    '@' + config.get('database:host') +
+    ':' + config.get('database:port') +
+    '/' + config.get('database:name'));
