@@ -1,26 +1,15 @@
 import React, {Component} from 'react';
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
+import * as postActions from '../actions/PostActions'
 
 class Post extends Component {
-    constructor(props) {
-        super(props);
-
-        this.state = {
-            post: []
-        };
-    }
-
     componentDidMount() {
-        fetch(`https://frontcamp-khvainitski.herokuapp.com/api/posts/${this.props.params.id}`).then(r => r.json())
-            .then((data) => {
-                this.setState({post: data})
-            })
-            .catch((err) => {
-                console.log(err);
-            });
+        this.props.postActions.getPost(this.props.params.id);
     }
 
     render() {
-        const post = this.state.post;
+        const post = this.props.post.data;
 
         return (
             <article className="blog-post">
@@ -33,4 +22,16 @@ class Post extends Component {
     }
 }
 
-export default Post;
+function mapStateToProps(state) {
+    return {
+        post: state.post
+    }
+}
+
+function mapDispatchToProps(dispatch) {
+    return {
+        postActions: bindActionCreators(postActions, dispatch)
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Post)
