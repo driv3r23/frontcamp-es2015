@@ -9,12 +9,19 @@ var validator = require('express-validator');
 var flash = require('connect-flash');
 var passport = require('passport');
 
+var webpack = require('webpack');
+var webpackDevMiddleware = require('webpack-dev-middleware');
+var webpackHotMiddleware = require('webpack-hot-middleware');
+var webpackConfig = require('./webpack.config');
+
 var config = require('./config/config');
+var compiler = webpack(webpackConfig);
 
 const LocalStrategy = require('passport-local').Strategy;
 const MongoStore = require('connect-mongo')(session);
 
 var index = require('./routes/index');
+var api = require('./routes/api');
 var users = require('./routes/users');
 
 var app = express();
@@ -23,8 +30,9 @@ var app = express();
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
 
-// uncomment after placing your favicon in /public
-//app.use(favicon(path.join(__dirname, 'public', 'favicon.ico')));
+app.use(webpackDevMiddleware(compiler, { noInfo: true, publicPath: webpackConfig.output.publicPath }));
+app.use(webpackHotMiddleware(compiler));
+
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: false}));
@@ -76,6 +84,7 @@ app.use(function (req, res, next) {
 });
 
 app.use('/', index);
+app.use('/api', api);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

@@ -1,16 +1,3 @@
 extends layout
 
 block content
-    each item in data
-        article.blog-post
-            if item.image
-                img.img-thumbnail(src="#{item.image}", height="300")
-            h2.blog-post-title= item.title
-            p.blog-post-meta= item.author
-            p= item.body
-            if user
-                nav
-                    a.btn.btn-default(href="/posts/#{item._id}") Edit
-                    = "\n"
-                    a.btn.btn-link.text-danger.blog-post-delete(href="/posts/#{item._id}") Delete
-            hr
