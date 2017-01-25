@@ -3,18 +3,13 @@ import { connect } from 'react-redux'
 
 class App extends Component {
     render() {
-        const { title, nav } = this.props.app;
+        const { title } = this.props.app;
 
         return (
-            <header>
+            <div>
                 <h1>{ title }</h1>
-                <nav>
-                    <a href="/#/posts">{ nav }</a>
-                </nav>
-                <main>
-                    {this.props.children}
-                </main>
-            </header>
+                {this.props.children}
+            </div>
         );
     }
 }

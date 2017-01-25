@@ -21,6 +21,7 @@ const LocalStrategy = require('passport-local').Strategy;
 const MongoStore = require('connect-mongo')(session);
 
 var index = require('./routes/index');
+var posts = require('./routes/posts');
 var api = require('./routes/api');
 var users = require('./routes/users');
 
@@ -85,6 +86,7 @@ app.use(function (req, res, next) {
 
 app.use('/', index);
 app.use('/api', api);
+app.use('/posts', posts);
 app.use('/users', users);
 
 // catch 404 and forward to error handler

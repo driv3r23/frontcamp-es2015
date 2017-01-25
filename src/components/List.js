@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
+import { Link } from 'react-router'
 import * as postActions from '../actions/PostActions'
 
 class List extends Component {
@@ -15,7 +16,7 @@ class List extends Component {
                     this.props.list.data.map((item, index) =>
                         <article className="blog-post" key={index}>
                             <h3>{item.title}</h3>
-                            <p><a href={"/#/posts/" + item._id}>Read more</a></p>
+                            <p><Link to={"/posts/" + item._id}>Read more</Link></p>
                         </article>
                     )
                 }
