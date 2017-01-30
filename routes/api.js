@@ -27,10 +27,6 @@ router.get('/posts', function (req, res, next) {
     }).sort({date: -1})
 });
 
-router.get('/add', isLogged, function (req, res, next) {
-    res.render('add', {});
-});
-
 router.get('/posts/:id', function (req, res, next) {
     Post.findOne({_id: req.params.id}, function (error, data) {
         if (error) return console.error(error);

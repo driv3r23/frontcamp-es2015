@@ -1,18 +1,23 @@
+/* ReactJS */
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router';
-import App from './containers/App'
-import configureStore from './store/configureStore'
+import App from './src/containers/App'
+import configureStore from './src/store/configureStore'
 
-import Post from './components/Post';
-import List from './components/List';
+import Post from './src/components/Post';
+import List from './src/components/List';
 
-import './styles/index.less';
+/* AngularJS */
+import angular from 'angular'
+import angularComponents from './app/components/components';
+
+import './src/styles/index.less';
 
 const store = configureStore();
 
-ReactDOM.render(
+/*ReactDOM.render(
     <Provider store={ store }>
         <Router history={ browserHistory }>
             <Route path="/posts" component={ App }>
@@ -22,4 +27,8 @@ ReactDOM.render(
         </Router>
     </Provider>,
     document.getElementById('container')
-);
+);*/
+
+angular.module('app', [
+    angularComponents
+]);

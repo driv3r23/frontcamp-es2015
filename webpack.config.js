@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = {
-    entry: ['webpack-hot-middleware/client', './src/index'],
+    entry: ['webpack-hot-middleware/client', './index'],
     output: {
         path: path.join(__dirname, 'dist'),
         filename: './scripts/[name].js',
@@ -25,10 +25,11 @@ module.exports = {
             {
                 test: /\.js$/,
                 exclude: /(node_modules)/,
-                loader: 'babel',
-                query: {
-                    presets: ['es2015', 'stage-0', 'react']
-                }
+                loader: 'ng-annotate!babel?presets[]=es2015,presets[]=stage-0,presets[]=react'
+            },
+            {
+                test: /\.html$/,
+                loader: 'raw'
             },
             {
                 test: /\.less$/,
