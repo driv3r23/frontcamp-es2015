@@ -5,6 +5,7 @@ html
         meta(name="viewport", content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no")
         link(rel="stylesheet", href="/stylesheets/bootstrap.min.css")
         link(rel="stylesheet", href="/stylesheets/main.css")
+        base(href="/")
     body
         nav.navbar.navbar-default.navbar-static-top
             div.container
@@ -26,6 +27,6 @@ html
                         else
                             li
                                 a(href="/users/logout") Logout
-        main.container
+        main.container#container(ng-app="app", ng-strict-di, ng-cloak)
             block content
         script(src="/scripts/main.js")

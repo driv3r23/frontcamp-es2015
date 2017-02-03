@@ -9,10 +9,6 @@ import configureStore from './src/store/configureStore'
 import Post from './src/components/Post';
 import List from './src/components/List';
 
-/* AngularJS */
-import angular from 'angular'
-import angularComponents from './app/components/components';
-
 import './src/styles/index.less';
 
 const store = configureStore();
@@ -29,6 +25,17 @@ const store = configureStore();
     document.getElementById('container')
 );*/
 
+/* AngularJS */
+import angular from 'angular'
+import angularRouter from 'angular-ui-router'
+import angularPages from './app/pages/pages'
+import angularComponents from './app/components/components'
+import AppComponent from './app/app';
+
 angular.module('app', [
+    angularRouter,
+    angularPages,
     angularComponents
-]);
+]).config(($locationProvider) => { 'ngInject';
+    $locationProvider.html5Mode(true);
+}).component('app', AppComponent);
