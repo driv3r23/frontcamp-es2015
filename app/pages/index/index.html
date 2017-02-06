@@ -1,1 +1,8 @@
-<div>{{ $ctrl.post }}</div>
+<p>Posts found: <strong>{{ $ctrl.posts.length }}</strong></p>
+
+<article class="blog-post" ng-repeat="post in $ctrl.posts">
+    <img class="img-thumbnail" src="{{ post.image }}" height="300" />
+    <h2 class="blog-post-title">{{ post.title }}</h2>
+    <p class="blog-post-meta">{{ post.author }}</p>
+    <p>{{ post.body }}</p>
+</article>

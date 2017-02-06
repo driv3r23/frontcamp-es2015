@@ -1,5 +1,20 @@
 extends layout
 
 block content
-    div(ng-app="app")
-        add
+    form(action=id ? "/posts/#{id}" : "/posts", method="post", enctype="multipart/form-data")
+        div.form-group
+            label(for="title") Title
+            input#title.form-control(type="text", name="title", value=title ? title : null, placeholder="Title")
+        div.form-group
+            label(for="author") Author
+            input#author.form-control(type="text", name="author", value=author ? author : null, placeholder="Author")
+        div.form-group
+            label(for="image") Image
+            input#image(type="file", name="image")
+        div.form-group
+            label(for="body") Body
+            textarea#body.form-control(name="body", placeholder="Body")=body ? body : ""
+        div.form-group
+            button.btn.btn-default(type="submit") Submit
+
+        input(type="hidden", name="upload", value=upload ? upload : null)
