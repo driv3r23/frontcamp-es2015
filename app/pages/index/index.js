@@ -14,7 +14,7 @@ let indexModule = angular.module('index', [ angularRouter ])
             });
     })
     .component('indexComponent', indexComponent)
-    .factory('indexFactory', ['$http', '$q', indexFactory])
+    .factory('indexFactory', indexFactory)
     .name;
 
 export default indexModule;

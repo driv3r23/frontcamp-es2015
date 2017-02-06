@@ -11,8 +11,6 @@ let IndexFactory = function ($http, $q) {
                 deferred.reject('Warning! Error occurred while getting new posts');
             });
 
-        console.log(deferred.promise);
-
         return deferred.promise;
     };
 
