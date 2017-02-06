@@ -2,7 +2,7 @@ import angular from 'angular';
 import angularRouter from 'angular-ui-router';
 
 import indexComponent from './index.component';
-import indexService from './index.service';
+import indexFactory from './index.factory';
 
 let indexModule = angular.module('index', [ angularRouter ])
     .config(($stateProvider, $urlRouterProvider) => { 'ngInject';
@@ -10,11 +10,11 @@ let indexModule = angular.module('index', [ angularRouter ])
         $stateProvider
             .state('index', {
                 url: '/',
-                component: 'index'
+                component: 'indexComponent'
             });
     })
-    .service('indexService', indexService)
     .component('indexComponent', indexComponent)
+    .factory('indexFactory', ['$http', '$q', indexFactory])
     .name;
 
 export default indexModule;

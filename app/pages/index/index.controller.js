@@ -1,8 +1,8 @@
 class IndexController {
-    constructor(indexService) {
-        this.post = indexService.getPosts();
-
-        console.log('asd');
+    constructor(indexFactory) {
+        this.post = indexFactory.getPosts().then(data => {
+            console.log('Boom!', data);
+        });
     }
 }
 

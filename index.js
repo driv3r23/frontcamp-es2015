@@ -30,12 +30,15 @@ import angular from 'angular'
 import angularRouter from 'angular-ui-router'
 import angularPages from './app/pages/pages'
 import angularComponents from './app/components/components'
-import AppComponent from './app/app';
 
 angular.module('app', [
     angularRouter,
-    angularPages,
-    angularComponents
+    angularComponents,
+    angularPages
 ]).config(($locationProvider) => { 'ngInject';
     $locationProvider.html5Mode(true);
-}).component('app', AppComponent);
+});
+
+angular.element(document).ready(() => {
+    angular.bootstrap(document.getElementById('container'), ['app']);
+});
