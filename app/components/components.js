@@ -1,9 +1,9 @@
 import angular from 'angular'
 
-import addComponent from './add/add'
+import formAddComponent from './form-add/form-add'
 
 let componentModule = angular.module('app.components', [
-    addComponent
+    formAddComponent
 ]).name;
 
 export default componentModule;
