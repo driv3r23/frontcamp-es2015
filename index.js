@@ -30,11 +30,13 @@ import angular from 'angular'
 import angularRouter from 'angular-ui-router'
 import angularPages from './app/pages/pages'
 import angularComponents from './app/components/components'
+import angularConfig from './app/config/config'
 
 angular.module('app', [
     angularRouter,
     angularComponents,
-    angularPages
+    angularPages,
+    angularConfig
 ]).config(($locationProvider) => { 'ngInject';
     $locationProvider.html5Mode(true);
 });

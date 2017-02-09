@@ -1,8 +1,8 @@
 class IndexController {
-    constructor(indexFactory) {
+    constructor(postFactory) {
         this.count = 0;
 
-        indexFactory.getPosts().then(data => {
+        postFactory.getPosts().then(data => {
             this.posts = data;
             this.count = data.length;
         });

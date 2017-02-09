@@ -1,9 +1,11 @@
 import angular from 'angular'
 
-import addComponent from './add/add'
+import postComponent from './post/post'
+import navigationComponent from './navigation/navigation'
 
 let componentModule = angular.module('app.components', [
-    addComponent
+    postComponent,
+    navigationComponent
 ]).name;
 
 export default componentModule;

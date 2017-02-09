@@ -1,3 +1,5 @@
+<navigation></navigation>
+
 <p>Posts found: <strong>{{ $ctrl.count }}</strong></p>
 
 <article class="blog-post" ng-repeat="post in $ctrl.posts">
@@ -5,4 +7,5 @@
     <h2 class="blog-post-title">{{ post.title }}</h2>
     <p class="blog-post-meta">{{ post.author }}</p>
     <p>{{ post.body }}</p>
+    <p><a class="btn btn-default" ui-sref="edit({ postKey: post._id })">Edit</a></p>
 </article>

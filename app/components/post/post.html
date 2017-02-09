@@ -1,0 +1,22 @@
+<form action="/posts" method="post" enctype="multipart/form-data" novalidate>
+    <div class="form-group">
+        <label for="title">Title</label>
+        <input class="form-control" type="text" name="title" value="{{$post.data.title}}" placeholder="Title" id="title" ng-model="$post.data.title" required />
+    </div>
+    <div class="form-group">
+        <label for="author">Author</label>
+        <input class="form-control" type="text" name="author" value="{{$post.data.author}}" placeholder="Author" id="author" ng-model="$post.data.author" limit />
+    </div>
+    <div class="form-group">
+        <label for="image">Image</label>
+        <input type="file" name="image" id="image">
+    </div>
+    <div class="form-group">
+        <label for="body">Body</label>
+        <textarea class="form-control" name="body" placeholder="Body" id="body" ng-model="$post.data.body" required>{{$post.data.body}}</textarea>
+    </div>
+    <div class="form-group">
+        <button class="btn btn-default" type="submit">Submit</button>
+    </div>
+    <input type="hidden" name="upload" value="{{$post.data.upload}}">
+</form>
