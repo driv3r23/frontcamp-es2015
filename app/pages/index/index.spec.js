@@ -12,7 +12,7 @@ describe('Index', () => {
         $location = $injector.get('$location');
         $compile = $injector.get('$compile');
         $httpBackend = $injector.get('$httpBackend');
-        $componentFactory = $injector.get('indexFactory');
+        $componentFactory = $injector.get('postFactory');
     }));
 
     describe('Module', () => {
@@ -36,7 +36,7 @@ describe('Index', () => {
         });
 
         it('has response above 0', function (done) {
-            $httpBackend.when('GET', 'https://frontcamp-khvainitski.herokuapp.com/api/posts').respond(200, [{
+            $httpBackend.when('GET', 'https://frontcamp-khvainitski.herokuapp.com/api/posts/').respond(200, [{
                 "_id": "58663d96ca16de1c388f5138", "__v": 0,
                 "image": "uploads/start-your-blog-4-steps.png",
                 "body": "Example body",
