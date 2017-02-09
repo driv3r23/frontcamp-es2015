@@ -1,6 +1,6 @@
 class IndexController {
-    constructor(indexFactory) {
-        indexFactory.getPosts().then(data => {
+    constructor(postFactory) {
+        postFactory.getPosts().then(data => {
             this.posts = data;
         });
     }

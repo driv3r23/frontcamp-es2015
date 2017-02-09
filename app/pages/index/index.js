@@ -2,7 +2,7 @@ import angular from 'angular';
 import angularRouter from 'angular-ui-router';
 
 import indexComponent from './index.component';
-import indexFactory from './index.factory';
+import postFactory from '../../components/post/post.factory';
 
 let indexModule = angular.module('index', [ angularRouter ])
     .config(($stateProvider, $urlRouterProvider) => { 'ngInject';
@@ -14,7 +14,7 @@ let indexModule = angular.module('index', [ angularRouter ])
             });
     })
     .component('indexComponent', indexComponent)
-    .factory('indexFactory', indexFactory)
+    .factory('postFactory', postFactory)
     .name;
 
 export default indexModule;

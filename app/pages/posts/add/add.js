@@ -7,7 +7,7 @@ let addModule = angular.module('add', [ angularRouter ])
     .config(($stateProvider) => { 'ngInject';
         $stateProvider
             .state('add', {
-                url: '/add',
+                url: '/posts/add',
                 component: 'addComponent'
             });
     })
