@@ -2,9 +2,8 @@ function limitDirective() {
     return {
         restrict: 'A',
         require: 'ngModel',
-        link: function(scope, element, attributes, control) {
-            control.$validators.custom = function(modelValue) {
-                console.log(modelValue);
+        link: function(scope, element, attrs, ngModel) {
+            ngModel.$validators.limit = function(modelValue) {
                 return modelValue.length >= 20;
             }
         }
