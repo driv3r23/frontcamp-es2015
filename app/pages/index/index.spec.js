@@ -1,7 +1,7 @@
 import IndexModule from './index'
 
 describe('Index', () => {
-    let $rootScope, $state, $location, $componentController, $compile, $httpBackend, $componentFactory;
+    let $rootScope, $state, $location, $componentController, $httpBackend, $componentFactory;
 
     beforeEach(window.module(IndexModule));
 
@@ -10,13 +10,12 @@ describe('Index', () => {
         $componentController = $injector.get('$componentController');
         $state = $injector.get('$state');
         $location = $injector.get('$location');
-        $compile = $injector.get('$compile');
         $httpBackend = $injector.get('$httpBackend');
         $componentFactory = $injector.get('postFactory');
     }));
 
     describe('Module', () => {
-        it('default component is index', () => {
+        it('Default component is index', () => {
             $location.url('/');
             $rootScope.$digest();
             expect($state.current.component).to.eq('indexComponent');
@@ -31,11 +30,15 @@ describe('Index', () => {
             });
         });
 
-        it('has a count property', () => {
+        it('Has a count property', () => {
             expect(controller).to.have.property('count');
         });
 
-        it('has response above 0', function (done) {
+        it('Has getPosts factory method', () => {
+            expect($componentFactory).to.have.property('getPosts');
+        });
+
+        it('Has response of array', function (done) {
             $httpBackend.when('GET', 'https://frontcamp-khvainitski.herokuapp.com/api/posts/').respond(200, [{
                 "_id": "58663d96ca16de1c388f5138", "__v": 0,
                 "image": "uploads/start-your-blog-4-steps.png",
@@ -46,7 +49,7 @@ describe('Index', () => {
             }]);
 
             $componentFactory.getPosts().then(function (res) {
-                expect(res).to.have.length.of.at.least(1);
+                expect(res).to.be.instanceof(Array);
                 done();
             });
 
@@ -54,19 +57,5 @@ describe('Index', () => {
         });
     });
 
-    /*
-     describe('View', () => {
-     let scope, template;
-
-     beforeEach(() => {
-     scope = $rootScope.$new();
-     template = $compile('<index-component></index-component>')(scope);
-     scope.$apply();
-     });
-
-     it('has counter in template', () => {
-     expect(template.find('p').html()).to.eq('Posts found:');
-     });
-     });
-     */
+     describe('View', () => {});
 });
