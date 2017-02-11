@@ -1,6 +1,6 @@
 <navigation></navigation>
 
-<p>Posts found: <strong>{{ $ctrl.posts.length }}</strong></p>
+<p>Posts found: <strong>{{ $ctrl.count }}</strong></p>
 
 <article class="blog-post" ng-repeat="post in $ctrl.posts">
     <img class="img-thumbnail" src="{{ post.image }}" height="300" />
