@@ -5,7 +5,7 @@ import * as postActions from '../actions/PostActions'
 
 class Post extends Component {
     componentDidMount() {
-        this.props.postActions.getPost(this.props.params.id);
+        this.props.postActions.getPost(this.props.match.params.id);
     }
 
     render() {
